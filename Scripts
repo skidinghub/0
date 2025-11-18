@@ -1,5 +1,5 @@
 {
   "Simple Esp": "loadstring(game:HttpGet('https://textbin.net/raw/cec3k8pgtk'))()",
-  "Prison Life Script": "loadstring(game:HttpGet('https://textbin.net/raw/krrlt7wtbe'))()",
+  "Prison Life Script(Patched)": "loadstring(game:HttpGet('https://textbin.net/raw/krrlt7wtbe'))()",
   "Grow a cafe": "loadstring(game:HttpGet('https://textbin.net/raw/lzblyuvmoy'))()"
 }
