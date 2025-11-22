@@ -18,7 +18,10 @@ function renderCodeBlocks(data) {
     
     container.innerHTML = '';
 
-    for (const [title, codeText] of Object.entries(data)) {
+    // Convert object to array and render scripts
+    const scripts = Object.entries(data);
+    
+    scripts.forEach(([title, codeText], index) => {
         const block = document.createElement('div');
         block.className = 'code-block';
         block.setAttribute('data-title', title.toLowerCase());
@@ -30,12 +33,13 @@ function renderCodeBlocks(data) {
         `;
 
         container.appendChild(block);
-    }
+    });
     
-    // Add scroll hint if there are many scripts
-    if (Object.keys(data).length > 3) {
-        addScrollHint();
-    }
+    // Add "More Coming Soon" message
+    const comingSoon = document.createElement('div');
+    comingSoon.className = 'coming-soon';
+    comingSoon.textContent = 'More scripts coming soon...';
+    container.appendChild(comingSoon);
 }
 
 function escapeHtml(text) {
@@ -47,15 +51,27 @@ function escapeHtml(text) {
 function searchCode() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const codeBlocks = document.querySelectorAll('.code-block');
+    const comingSoon = document.querySelector('.coming-soon');
+
+    let visibleCount = 0;
 
     codeBlocks.forEach(block => {
+        if (block.classList.contains('coming-soon')) return;
+        
         const title = block.getAttribute('data-title');
         const codeElement = block.querySelector('code');
         const codeText = codeElement ? codeElement.textContent.toLowerCase() : '';
         
         const matches = title.includes(input) || codeText.includes(input);
         block.classList.toggle('hidden', !matches);
+        
+        if (matches) visibleCount++;
     });
+
+    // Show/hide "More Coming Soon" based on search
+    if (comingSoon) {
+        comingSoon.classList.toggle('hidden', input.length > 0);
+    }
 }
 
 function copyCode(button) {
@@ -80,27 +96,6 @@ function copyCode(button) {
     });
 }
 
-function addScrollHint() {
-    if (document.querySelector('.scroll-hint')) return;
-    
-    const hint = document.createElement('div');
-    hint.className = 'scroll-hint';
-    hint.textContent = '← Scroll →';
-    hint.onclick = () => {
-        document.getElementById('codeContainer').scrollBy({ left: 300, behavior: 'smooth' });
-    };
-    
-    document.body.appendChild(hint);
-    
-    // Remove hint after 10 seconds
-    setTimeout(() => {
-        if (hint.parentNode) {
-            hint.style.opacity = '0';
-            setTimeout(() => hint.remove(), 500);
-        }
-    }, 10000);
-}
-
 function showError(message) {
     const container = document.getElementById('codeContainer');
     if (!container) return;
@@ -116,42 +111,4 @@ function showError(message) {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     fetchData();
-    
-    // Add keyboard navigation for horizontal scrolling
-    document.addEventListener('keydown', function(e) {
-        const container = document.getElementById('codeContainer');
-        if (!container) return;
-        
-        if (e.key === 'ArrowLeft') {
-            container.scrollBy({ left: -300, behavior: 'smooth' });
-        } else if (e.key === 'ArrowRight') {
-            container.scrollBy({ left: 300, behavior: 'smooth' });
-        }
-    });
-    
-    // Add touch/swipe support for mobile
-    let startX = 0;
-    const container = document.getElementById('codeContainer');
-    
-    if (container) {
-        container.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        });
-        
-        container.addEventListener('touchmove', (e) => {
-            if (!startX) return;
-            
-            const currentX = e.touches[0].clientX;
-            const diff = startX - currentX;
-            
-            if (Math.abs(diff) > 50) {
-                container.scrollBy({ left: diff * 2, behavior: 'smooth' });
-                startX = currentX;
-            }
-        });
-        
-        container.addEventListener('touchend', () => {
-            startX = 0;
-        });
-    }
 });
