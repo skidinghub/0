@@ -16,64 +16,13 @@
 <body>
     <h1>Shity Scripts</h1>
     <input type="text" id="searchInput" placeholder="Search Script" onkeyup="searchCode()">
-    <div id="codeContainer"></div>
+    
+    <div id="codeContainer">
+        <div class="scripts-grid">
 
-    <script>
-        const dataUrl = "https://raw.githubusercontent.com/skidinghub/0/refs/heads/main/Scripts";
+        </div>
+    </div>
 
-        async function fetchData() {
-            try {
-                const response = await fetch(dataUrl);
-                if (!response.ok) throw new Error('Failed to fetch data');
-                const data = await response.json();
-                renderCodeBlocks(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-
-        function renderCodeBlocks(data) {
-            const container = document.getElementById('codeContainer');
-            container.innerHTML = '';
-
-            for (const [title, codeText] of Object.entries(data)) {
-                const block = document.createElement('div');
-                block.className = 'code-block';
-                block.setAttribute('data-title', title);
-
-                block.innerHTML = `
-                    <h2>${title}</h2>
-                    <pre><code><span class="string">${codeText}</span></code></pre>
-                    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-                `;
-
-                container.appendChild(block);
-            }
-        }
-
-        function searchCode() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const codeBlocks = document.querySelectorAll('.code-block');
-
-            codeBlocks.forEach(block => {
-                const title = block.getAttribute('data-title').toLowerCase();
-                block.classList.toggle('hidden', !title.includes(input));
-            });
-        }
-
-        function copyCode(button) {
-            const codeElement = button.previousElementSibling.querySelector('code');
-            const text = codeElement.textContent.trim();
-            navigator.clipboard.writeText(text).then(() => {
-                button.textContent = 'Copied!';
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                }, 1000);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
-        }
-        window.onload = fetchData;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
