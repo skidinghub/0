@@ -1,6 +1,6 @@
 {
   "Simple Esp": "loadstring(game:HttpGet('https://textbin.net/raw/cec3k8pgtk'))()",
   "Prison Life Script(Patched)": "Patched",
-  "Grow a cafe": "loadstring(game:HttpGet('https://textbin.net/raw/lzblyuvmoy'))()"
+  "Grow a cafe": "loadstring(game:HttpGet('https://textbin.net/raw/lzblyuvmoy'))()",
   "Ban or Get Banned": "loadstring(game:HttpGet('https://pastebin.com/raw/zrXN0zZg'))()"
 }
