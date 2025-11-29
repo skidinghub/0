@@ -1,4 +1,4 @@
-const dataUrl = "https://raw.githubusercontent.com/skidinghub/0/refs/heads/main/Scripts";
+const dataUrl = "https://raw.githubusercontent.com/2e5d/0/refs/heads/main/Scripts";
 
 async function fetchData() {
     try {
