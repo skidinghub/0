@@ -2,10 +2,10 @@
 <img align="left" src="https://qu.ax/wOPfl.png" width="147"/> 
 
 ```csharp
-github.com/skidinghub
-dc   $  @fuck005918
+github.com/2e5d
+dc   $  @2e5d
 srv  $  [discord.gg/zxz](http://dc.gg/xzx)
-web  $  [shty.bio](https://skidinghub.github.io/@1294u01385)
+web  $  [shty.bio]()
 ```
 &zwnj; 
 &zwnj; 
